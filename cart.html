@@ -29,13 +29,17 @@
         <!-- Aquí se agregarán dinámicamente los productos del carrito -->
       </tbody>
     </table>
-    <button onclick="realizarPago()">Realizar Pago</button>
+    <button onclick="redirigirWhatsApp()">Realizar Pago</button>
   </main>
 
   <footer>
     <p>Contacto: <a href="https://wa.me/numero">WhatsApp</a></p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    function redirigirWhatsApp() {
+      window.location.href = "https://wa.me/numerotelefono";
+    }
+  </script>
 </body>
 </html>

@@ -1,22 +1,23 @@
 <?php
-// Connect to the database
-$pdo = new PDO("mysql:host=localhost;dbname=online_store", "username", "password");
+$host = 'localhost';
+$db   = 'my_database';
+$user = 'my_username';
+$pass = 'my_password';
+$charset = 'utf8mb4';
 
-// Get the products from the database
-$stmt = $pdo->query("SELECT * FROM products");
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$opt = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
+$pdo = new PDO($dsn, $user, $pass, $opt);
+
+$stmt = $pdo->query('SELECT * FROM products');
+$products = $stmt->fetchAll();
 
 // Display the products
-echo "<h1>Products</h1>";
-echo "<ul>";
 foreach ($products as $product) {
-	echo "<li>";
-	echo "<img src='" . $product["image"] . "' alt='" . $product["name"] . "'>";
-	echo "<h2>" . $product["name"] . "</h2>";
-	echo "<p>" . $product["price"] . "</p>";
-	echo "<button onclick='addToCart(" . $product["id"] . ")'>Add to Cart</button>";
-	echo "<button onclick='openWhatsApp()'>Contact us on WhatsApp</button>";
-	echo "</li>";
+    echo $product['name'] . ' - ' . $product['price'] . '<br>';
 }
-echo "</ul>";
 ?>
